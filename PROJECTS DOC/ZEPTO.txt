@@ -1,0 +1,135 @@
+package PROJECTS;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+
+public class Zepto {
+
+	public static void main(String[] args) throws Exception {
+		//setting the system property
+		System.setProperty("webdriver.chrome.driver","C:\\chromedriver.exe");
+		//connecting webdriver and chrome driver
+		ChromeOptions options=new ChromeOptions();options.addArguments("--disable-notifications");WebDriver driver=new ChromeDriver(options);
+		Actions act=new Actions(driver);
+		//entering valid url
+		driver.get("https://shop.zeptonow.com/");
+		//maximize the window page
+		driver.manage().window().maximize();Thread.sleep(3000);
+		
+		//selecting the location type locate manually
+		driver.findElement(By.xpath("//*[@id=\'react-portal-bottomsheet-container\']/div/div/div/button[2]")).click();Thread.sleep(3000);
+		
+		//searching for location
+		WebElement location=driver.findElement(By.xpath("//body/div/div/div/div/div[1]/input"));
+		act.moveToElement(location).click().build().perform();location.sendKeys("vandalur");
+		Thread.sleep(3000);driver.findElement(By.xpath("//body/div/div/div/div/div[2]/div/div")).click();Thread.sleep(3000);
+		
+		//clicking the button to confirm the location
+		driver.findElement(By.xpath("//*[@id=\'__next\']/div/div/div/div/div[2]/div/button[2]")).click();Thread.sleep(3000);
+		
+		//clcikimg on login
+		driver.findElement(By.xpath("//*[@id=\'__next\']/div/div[1]/div/div[1]/nav/button")).click();Thread.sleep(3000);
+		driver.findElement(By.xpath("//*[@id=\'__next\']/div/div/div/button")).click();Thread.sleep(3000);
+		
+		//entering the mobile number
+		WebElement mobno=driver.findElement(By.xpath("//body/div[2]/div/div/div/div/div/div/div//div[2]/div/div/div/div[2]/input"));
+		act.moveToElement(mobno).click().build().perform();mobno.sendKeys("9894656787");
+		driver.findElement(By.xpath("//body/div[2]/div/div/div/div/div/div/div//div[2]/div/div/div/button")).click();Thread.sleep(20000);
+		
+		//manually entering the OTP
+		
+		//clicking the navigation button to home page
+		driver.findElement(By.xpath("//*[@id=\'__next\']/div/nav/button")).click();Thread.sleep(5000);
+		
+		//pointing the search box to search items
+		WebElement search =driver.findElement(By.xpath("//body/div/div/div/div/div[1]/div/div/input"));
+		act.moveToElement(search).click().build().perform();Thread.sleep(3000);
+		
+		//searching for sugar and adding the item to cart
+		WebElement box=driver.findElement(By.xpath("//body/div/div/div/div/div/input"));
+		act.moveToElement(box).click().build().perform();box.sendKeys("sugar");Thread.sleep(5000);
+		WebElement add=driver.findElement(By.xpath("//*[@id='__next']/div/div[2]/div[1]/div[5]/div[2]/button"));
+		act.moveToElement(add).click().build().perform();Thread.sleep(3000);
+		
+		//searching for oil and adding the item to cart
+		act.moveToElement(box).click().build().perform();box.clear();box.sendKeys("oil");Thread.sleep(5000);
+		WebElement add1=driver.findElement(By.xpath("//*[@id='__next']/div/div[2]/div[1]/div[5]/div[2]/button"));
+		act.moveToElement(add1).click().build().perform();Thread.sleep(3000);
+		
+		//searching for chocolate and adding the item to cart
+		act.moveToElement(box).click().build().perform();box.clear();box.sendKeys("Chocolate");Thread.sleep(5000);
+		WebElement add2=driver.findElement(By.xpath("//*[@id='__next']/div/div[2]/div[1]/div[5]/div[2]/button"));
+		act.moveToElement(add2).click().build().perform();Thread.sleep(3000);
+		
+		//searching for soap and adding the item to cart
+		act.moveToElement(box).click().build().perform();box.clear();box.sendKeys("soap");Thread.sleep(5000);
+		WebElement add3=driver.findElement(By.xpath("//*[@id='__next']/div/div[2]/div[1]/div[5]/div[2]/button"));
+		act.moveToElement(add3).click().build().perform();Thread.sleep(3000);
+		
+		//searching for biscuit and adding the item to cart
+		act.moveToElement(box).click().build().perform();box.clear();box.sendKeys("Biscuit");Thread.sleep(5000);
+		WebElement add4=driver.findElement(By.xpath("//*[@id='__next']/div/div[2]/div[1]/div[5]/div[2]/button"));
+		act.moveToElement(add4).click().build().perform();Thread.sleep(3000);
+		
+		//searching for shampoo and adding the item to cart
+		act.moveToElement(box).click().build().perform();box.clear();box.sendKeys("shampoo");Thread.sleep(5000);
+		WebElement add5=driver.findElement(By.xpath("//*[@id='__next']/div/div[2]/div[1]/div[5]/div[2]/button"));
+		act.moveToElement(add5).click().build().perform();Thread.sleep(3000);
+		
+		//searching for ponnirice and adding the item to cart
+		act.moveToElement(box).click().build().perform();box.clear();box.sendKeys("rice");Thread.sleep(5000);
+		WebElement add6=driver.findElement(By.xpath("/html/body/div/div/div[2]/div[1]/div[4]/div[2]/button"));
+		act.moveToElement(add6).click().build().perform();Thread.sleep(3000);
+		
+		//clicking on viewcart	
+		WebElement viewcart=driver.findElement(By.xpath("//*[@id='__next']/div/div[4]/a/div"));
+		act.moveToElement(viewcart).click().build().perform();Thread.sleep(3000);
+	
+		//adding new address
+		WebElement addaddress=driver.findElement(By.xpath("//*[@id='__next']/div/div/div/div[3]/div/div/div/button"));
+		act.moveToElement(addaddress).click().build().perform();Thread.sleep(3000);
+		
+		//confirming the location
+		WebElement confirm=driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div[2]/div/div[2]/div/button[2]/div"));
+		act.moveToElement(confirm).click().build().perform();Thread.sleep(3000);
+	
+		//entering the name in address box
+		WebElement name=driver.findElement(By.xpath("//*[@id='__next']/div/div/div/div/form/div/div[1]/input"));
+		act.moveToElement(name).click().build().perform();name.sendKeys("santhosh");Thread.sleep(3000);
+	
+		//entering the door no in address box
+		WebElement door=driver.findElement(By.xpath("//*[@id='__next']/div/div/div/div/form/div/div[2]/input"));
+		act.moveToElement(door).click().build().perform();door.sendKeys("no:11,nearzoo");Thread.sleep(3000);
+		
+		//selecting the delivery type to address
+		WebElement type=driver.findElement(By.xpath("//*[@id='__next']/div/div/div/div/form/div/ul/li[1]"));
+		act.moveToElement(type).click().build().perform();Thread.sleep(3000);
+		driver.findElement(By.xpath("//*[@id=\'__next\']/div/div/div/div/form/div[2]/button")).click();Thread.sleep(8000);
+		
+		
+		//clicking on continue to payment
+		WebElement button=driver.findElement(By.xpath("//*[@id='__next']/div/div/div/div[3]/div/div[2]/div[2]/button"));
+		act.moveToElement(button).click().build().perform();Thread.sleep(10000);
+		
+		//clicking on pay on delivery
+		//WebElement payondelivery=driver.findElement(By.xpath("//*[@id='content']/div/div/div[3]/div/div[2]/div[2]/div/div[1]/div[2]/div[1]"));
+		//act.moveToElement(payondelivery).click().build().perform();Thread.sleep(5000);
+		
+		//clicking on delivry
+		//WebElement ondelivery=driver.findElement(By.xpath("//*[@id='content']/div/div/div[3]/div/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]/div[2]/div/div/div/div/div[2]"));
+		//act.moveToElement(ondelivery).click().build().perform();
+		
+		//close the web
+		//driver.close();
+	
+	
+	
+	}
+
+}

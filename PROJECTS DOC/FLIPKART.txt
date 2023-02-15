@@ -1,0 +1,90 @@
+package Selenium;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class FLIPKARTPROJECT3 {
+
+	public static void main(String[] args) throws InterruptedException {
+		//setting the system property
+		System.setProperty("webdriver.chrome.driver","C:\\chromedriver.exe");
+		//connecting webdriver and chrome driver
+		WebDriver driver=new ChromeDriver();
+		Thread.sleep(2000);
+		Actions act=new Actions(driver);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		//entering valid url
+		driver.get("https://www.flipkart.com/"); 
+		Thread.sleep(2000);
+		//maximize the window page
+		driver.manage().window().maximize();
+				
+				
+		//enter the mobilenumber to login
+		WebElement mobno=driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div/div[2]/div/form/div[1]/input"));
+		mobno.sendKeys("9080114038");
+		//clicking request login button
+		WebElement reqlog=driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div/div[2]/div/form/div[3]/button"));
+		reqlog.click();
+		
+		//entering OTP manually
+		//sending the value to the searchbox 
+		WebElement searchbox=driver.findElement(By.name("q"));
+		act.moveToElement(searchbox).click().build().perform();searchbox.sendKeys("Dell laptop under 40k",Keys.ENTER);Thread.sleep(2000);
+		
+		//enter on the search 
+		driver.findElement(By.xpath("(//*[name()='svg'])[1]")).click();
+		Thread.sleep(2000);
+		
+		//select ting price low to high
+		driver.findElement(By.xpath("//*[@id=\'container\']/div/div[3]/div[1]/div[2]/div[1]/div/div/div[2]/div[3]")).click();Thread.sleep(1000);
+		//selecting the particular item
+		js.executeScript("window.scrollBy(0,1000)");
+		WebElement lap=driver.findElement(By.xpath("//body/div[1]/div[1]/div[3]/div[1]/div[2]/div[4]/div[1]/div[1]/div[1]/a/div[2]/div/div"));
+		act.moveToElement(lap).click().build().perform();Thread.sleep(2000);
+		
+		//to switch current tab to one more tab 
+		String curretHandle =driver.getWindowHandle();//for window handle
+		Set<String> handles = driver.getWindowHandles();//call all tabs in the browser
+		
+		for(String actual: handles)
+		{
+			if(!actual.equalsIgnoreCase(curretHandle))
+			{
+				//switch the driver to next tab
+				driver.switchTo().window(actual);
+			}
+		}
+		//to scrolldown window
+		js.executeScript("window.scrollBy(0,500)");
+		//clicking on add to cart
+		WebElement cart = driver.findElement(By.xpath("//body/div[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[1]/ul/li/button[1]"));
+		act.moveToElement(cart).click().build().perform();Thread.sleep(2000);
+		//sending delivery address
+		WebElement delivery =driver.findElement(By.xpath("//body/div[1]/div[1]/div[3]/div[1]/div[2]/div[5]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form/input"));
+		act.moveToElement(delivery).click().build().perform();delivery.sendKeys("600078",Keys.ENTER);Thread.sleep(2000);
+		
+		//move to cart 
+		WebElement K = driver.findElement(By.xpath("//body/div[1]/div[1]/div[1]/div[1]/div[2]/div[6]/div[1]/div[1]/a/span"));
+		act.moveToElement(K).click().build().perform();Thread.sleep(2000);
+		
+		//change pin code
+		WebElement change =driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/button[1]"));
+		act.moveToElement(change).click().build().perform();Thread.sleep(1000);
+		
+		//sending pin code
+		WebElement pin = driver.findElement(By.xpath("//*[@id=\'container\']/div/div[1]/div/div[1]/div[2]/div/label/div[1]"));
+		act.moveToElement(pin).click().build().perform();Thread.sleep(2000);
+		//close the window
+		driver.close();
+		
+	}
+
+}

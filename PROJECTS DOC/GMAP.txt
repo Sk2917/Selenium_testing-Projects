@@ -1,0 +1,86 @@
+package PROJECTS;
+
+import java.awt.Robot;
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class GoogleMaps {
+
+	public static void main(String[] args) throws Exception {
+
+		//setting the system property
+		System.setProperty("webdriver.chrome.driver","C:\\chromedriver.exe");
+		//connecting webdriver and chrome driver
+		WebDriver driver=new ChromeDriver();
+		//entering valid url
+		driver.get("https://www.google.co.in/");
+		//maximise the window page
+		driver.manage().window().maximize();
+		Actions act=new Actions(driver);
+		JavascriptExecutor js=((JavascriptExecutor)driver);
+		//finding the google text box and enter our value
+		WebElement googlebox=driver.findElement(By.name("q"));
+		googlebox.sendKeys("google maps",Keys.ENTER);
+		
+		//selecting the first link to navigate homepage
+		driver.findElement(By.xpath("//*[@class='yuRUbf']/a")).click();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		
+		//clicking on direction symbol
+		WebElement direction=driver.findElement(By.xpath("//body/div[3]/div[9]/div[3]/div/div/div/div[2]/div[2]/div/button"));
+		act.moveToElement(direction).click().build().perform();Thread.sleep(3000);
+		
+		//selecting the text box enter depature value
+		WebElement from=driver.findElement(By.xpath("/html/body/div[3]/div[9]/div[3]/div[1]/div[2]/div/div[3]/div[1]/div[1]/div[2]/div[1]/div/input"));
+		act.moveToElement(from).click().build().perform();Thread.sleep(3000);from.sendKeys("chennai",Keys.ENTER);Thread.sleep(3000);
+		
+		//selecting the text box enter destination value
+		WebElement to=driver.findElement(By.xpath("//body/div[3]/div[9]/div[3]/div/div[2]/div/div[3]/div/div[2]/div[2]/div/div/input"));
+		act.moveToElement(to).click().build().perform();Thread.sleep(3000);to.sendKeys("goa",Keys.ENTER);Thread.sleep(3000);
+		
+		//selecting the driving mode by car
+		WebElement drivemode=driver.findElement(By.xpath("//body/div[3]/div[9]/div[3]/div/div[2]/div/div[2]/div/div/div/div[2]/button"));
+		act.moveToElement(drivemode).click().build().perform();Thread.sleep(5000);
+		
+		//explore hotels in goa
+		WebElement goahotels=driver.findElement(By.xpath("//body/div[3]/div[9]/div[9]/div/div/div/div[2]/div/div/div/div/div[7]/div/button[2]"));
+		act.moveToElement(goahotels).click().build().perform();Thread.sleep(5000);
+		
+		//search for hotels near beach
+		WebElement searchhotel=driver.findElement(By.xpath("//body/div[3]/div[9]/div[3]/div/div/div/div[2]/form/div[2]//div[3]/div/input[@name='q']"));
+		act.moveToElement(searchhotel).click().build().perform();Thread.sleep(5000);
+		searchhotel.clear();searchhotel.sendKeys("sunset beach,Goa");searchhotel.sendKeys(Keys.ENTER);Thread.sleep(3000);
+		
+		//pointing nearby icon
+		WebElement nearby=driver.findElement(By.xpath("//body/div[3]/div[9]/div[9]/div/div/div/div[2]/div/div/div/div/div[4]/div[3]/button/span"));
+		act.moveToElement(nearby).click().build().perform();Thread.sleep(3000);
+		
+		//search for hotels nearby sunset beach
+		WebElement searchhotelbeach=driver.findElement(By.xpath("//body/div[3]/div[9]/div[3]/div/div/div/div[2]/form/div[2]//div[3]/div/input[@name='q']"));
+		act.moveToElement(searchhotelbeach).click().build().perform();Thread.sleep(5000);
+		searchhotelbeach.sendKeys("hotels");searchhotelbeach.sendKeys(Keys.ENTER);Thread.sleep(3000);
+		
+		//search for hotels nearby sunset beach
+		WebElement findresort=driver.findElement(By.xpath("//body/div[3]/div[9]/div[3]/div/div/div/div[2]/form/div[2]//div[3]/div/input[@name='q']"));
+		act.moveToElement(findresort).click().build().perform();Thread.sleep(5000);findresort.clear();
+		findresort.sendKeys("A's Holiday Beach Resort");findresort.sendKeys(Keys.ENTER);Thread.sleep(3000);
+		
+		//hotel
+		WebElement resort=driver.findElement(By.xpath("//body/div[3]/div[9]/div[9]/div/div/div/div[2]/div/div/div/div/div[3]/div/div[5]/div[1]/a"));
+		act.moveToElement(resort).click().build().perform();Thread.sleep(3000);
+		
+		//close
+		driver.close();
+	
+		
+		
+	}
+
+}

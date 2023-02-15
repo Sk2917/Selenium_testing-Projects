@@ -1,0 +1,103 @@
+package PROJECTS;
+
+import java.awt.Robot;
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class MakeMyTrip {
+
+	public static void main(String[] args) throws Exception {
+		//setting the system property
+		System.setProperty("webdriver.chrome.driver","C:\\chromedriver.exe");
+		//connecting webdriver and chrome driver
+		WebDriver driver=new ChromeDriver();
+		//entering valid url
+		driver.get("https://www.google.co.in/");
+		//maximise the window page
+		driver.manage().window().maximize();
+		Actions act=new Actions(driver);
+		JavascriptExecutor js=((JavascriptExecutor)driver);
+		Robot robot=new Robot();
+		
+		//finding the google text box and enter our value
+		WebElement googlebox=driver.findElement(By.name("q"));
+		googlebox.sendKeys("make my trip",Keys.ENTER);
+		
+		//selecting the first link to navigate homepage
+		driver.findElement(By.xpath("//*[@id=\'rso\']/div[1]/div/div/div[1]/div")).click();
+		
+		//selecting the flight option
+		WebElement Flightlogo=driver.findElement(By.xpath("//*[@id=\'SW\']/div[1]/div[2]/div/div/nav/ul/li[1]/div/a"));
+		act.moveToElement(Flightlogo).click().build().perform();
+		
+		//finding the from text box and enter values
+		WebElement Frombox=driver.findElement(By.xpath("//*[@id=\'root\']/div/div[2]/div/div/div[2]/div[1]/div[1]"));
+		act.moveToElement(Frombox).click().build().perform();
+		WebElement From=driver.findElement(By.xpath("//*[@id='root']/div/div[2]/div/div/div[2]/div[1]/div[1]/div[1]/div/div/div/input"));
+		From.sendKeys("Chennai");
+		Thread.sleep(3000);
+		From.sendKeys(Keys.ARROW_DOWN);
+		From.sendKeys(Keys.ENTER);
+		
+		//finding the to text box and enter values
+		WebElement Tobox=driver.findElement(By.xpath("//*[@id=\'root\']/div/div[2]/div/div/div[2]/div[1]/div[2]"));
+		act.moveToElement(Tobox).click().build().perform();
+		WebElement To=driver.findElement(By.xpath("//*[@id=\'root\']/div/div[2]/div/div/div[2]/div[1]/div[2]/div[1]/div/div/div[1]/input"));
+		To.sendKeys("London");
+		//getting the list of city
+		List<WebElement>destinationcity=driver.findElements(By.xpath("//*[@role='listbox']/div//div"));
+		for(int j=0;j<destinationcity.size();j++)
+		{
+			String text1=destinationcity.get(j).getText();		
+			if(text1.contains("London"))
+			{
+				destinationcity.get(j).click();
+				break;
+			}
+		}
+		
+		//selecting the date
+		WebElement date=driver.findElement(By.xpath("//*[@id=\'root\']/div/div[2]/div/div/div[2]/div[1]/div[3]/div[1]/div/div/div/div[2]/div/div[2]/div[1]/div[3]/div[3]/div[1]/div"));
+		act.moveToElement(date).click().build().perform();
+		
+		//selecting the economic class
+		WebElement Travelclass=driver.findElement(By.xpath("//*[@id=\'root\']/div/div[2]/div/div/div[2]/div[1]/div[5]"));
+		act.moveToElement(Travelclass).click().build().perform();
+		WebElement Economyclass=driver.findElement(By.xpath("//*[@id=\'root\']/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[1]/ul[2]/li[1]"));
+		WebElement apply=driver.findElement(By.xpath("//*[@id=\'root\']/div/div[2]/div/div/div[2]/div[1]/div[5]/div[2]/div[2]/button"));
+		Thread.sleep(3000);
+		act.moveToElement(Economyclass).click().build().perform();
+		act.moveToElement(apply).click().build().perform();
+		
+		//click on search
+		driver.findElement(By.xpath("//*[@id=\'root\']/div/div[2]/div/div/div[2]/p/a")).click();
+		
+		//accepting the lock price
+		Thread.sleep(15000);
+		WebElement button=driver.findElement(By.xpath("//*[@id=\'root\']/div/div[2]/div[2]/div[2]/div/span"));
+		act.moveToElement(button).click().build().perform();
+		
+		//select the cheapest option
+		WebElement cheapestprice=driver.findElement(By.xpath("//*[@id=\'listing-id\']/div/div[1]/div/div[1]"));
+		cheapestprice.click();
+		
+		//scrolling to the flight having cheapest flight
+		WebElement flight=driver.findElement(By.xpath("//body/div/div/div[2]/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[2]/div[2]/div/button"));
+		js.executeScript("arguments[0].scrollIntoView(true);",flight);
+		//"//*[@id=\"listing-id\"]/div/div[2]/div/div[1]"
+		//clicking on view prices
+		WebElement viewprices=driver.findElement(By.xpath("//body/div/div/div[2]/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[2]/div[2]/div/button"));
+		act.moveToElement(viewprices).click().build().perform();
+
+	}
+
+}

@@ -1,0 +1,141 @@
+package PROJECTS;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class IRCTC {
+
+	public static void main(String[] args) throws Exception {
+		//setting the system property
+		System.setProperty("webdriver.chrome.driver","C:\\chromedriver.exe");
+		//connecting webdriver and chrome driver
+		ChromeOptions options=new ChromeOptions();options.addArguments("--disable-notifications");WebDriver driver=new ChromeDriver(options);
+		Actions act=new Actions(driver);JavascriptExecutor js=(JavascriptExecutor)driver;
+		//entering valid url
+		driver.get("https://www.google.co.in/");
+		//maximise the window page
+		driver.manage().window().maximize();
+				
+		//finding the google text box and enter our value
+		WebElement googlebox=driver.findElement(By.name("q"));
+		googlebox.sendKeys("irctc",Keys.ENTER);
+				
+		//selecting the first link to navigate homepage
+		driver.findElement(By.className("yuRUbf")).click();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		
+		//selecting the login box
+		driver.findElement(By.xpath("/html/body/app-root/app-home/div[1]/app-header/div[2]/div[2]/div[1]/a[1]")).click();
+		
+		//entering vaild username
+		WebElement username=driver.findElement(By.xpath("//*[@class='form-group form-sd ui-inputgroup']//input[@type='text']")); 
+		act.moveToElement(username).click().build().perform();username.sendKeys("Kolanthai1");Thread.sleep(3000); 
+		
+		//entering password
+		WebElement password=driver.findElement(By.xpath("//*[@class='form-group form-sd ui-inputgroup']//input[@type='password']")); 
+		act.moveToElement(password).click().build().perform();password.sendKeys("Santhosh@28");Thread.sleep(15000);
+		
+		//entering captcha vaule manually
+		
+		//cicking on sign in button
+		WebElement signin=driver.findElement(By.xpath("//*[@id=\'login_header_disable\']/div/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/form/span/button")); 
+		js.executeScript("arguments[0].scrollIntoView(true)",signin);signin.click();Thread.sleep(3000);
+		
+		//search in depature field
+		WebElement From=driver.findElement(By.xpath("//*[@class='form-group ui-float-label']//*[@id='origin']//input[@role='searchbox']"));
+		act.moveToElement(From).click().build().perform();From.sendKeys("chennai egmore");
+		Thread.sleep(3000);From.sendKeys(Keys.ARROW_DOWN);From.sendKeys(Keys.ENTER);
+
+		//search in destination field
+		WebElement To=driver.findElement(By.xpath("//*[@class='form-group ui-float-label']//*[@id='destination']//input[@role='searchbox']"));
+		act.moveToElement(To).click().build().perform();To.sendKeys("dindigul");
+		Thread.sleep(3000);To.sendKeys(Keys.ARROW_DOWN);To.sendKeys(Keys.ENTER);
+	
+		//selecting the journey date
+		WebElement Date=driver.findElement(By.xpath("//*[@class='form-group ui-float-label']//*[@formcontrolname='journeyDate']	"));
+		act.moveToElement(Date).click().build().perform();Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@class='form-group ui-float-label']//*[@formcontrolname='journeyDate']//*[@class='ng-tns-c58-10']//tr[3]//td[4]")).click();
+		
+		//seectin sleeper class from class
+		WebElement classes=driver.findElement(By.xpath("//*[@class='form-group']//*[@id='journeyClass']"));
+		classes.click();Thread.sleep(3000);
+		driver.findElement(By.xpath("//*[@class='form-group']//*[@id='journeyClass']//*[@aria-label='Sleeper (SL)']")).click();
+		Thread.sleep(3000);
+		
+		//clicking on search button
+		driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();Thread.sleep(3000);
+		
+		//scrolling the page down to time element
+		WebElement Time=driver.findElement(By.xpath("//*[@id=\"ui-panel-1-content\"]/div"));
+		js.executeScript("arguments[0].scrollIntoView(true)",Time);Thread.sleep(2000);
+		act.moveToElement(Time).click().build().perform();
+		
+		//dragging the time to 6
+		WebElement side1=driver.findElement(By.xpath("//*[@id=\'divMain\']/div/app-train-list/div[3]/div[1]/app-filter/div/div[2]/p-slider/div/span[2]"));
+		act.dragAndDropBy(side1, 75, 0).build().perform();
+		
+		//dragging the time to 12
+		WebElement side2=driver.findElement(By.xpath("//*[@id=\'divMain\']/div/app-train-list/div[3]/div[1]/app-filter/div/div[2]/p-slider/div/span[3]"));
+		act.dragAndDropBy(side2, -140, 0).build().perform();
+		
+		//scrolling the page to the train
+		WebElement trainname=driver.findElement(By.xpath("//*[@id='divMain']/div/app-train-list/div[4]"));
+		js.executeScript("arguments[0].scrollIntoView(true)",trainname);
+		
+		//clicking on sleeper button
+		driver.findElement(By.xpath("//*[@id=\'divMain\']/div/app-train-list/div[4]/div/div[5]/div/div[1]/app-train-avl-enq/div[1]/div[5]/div[1]/table/tr/td[2]")).click();Thread.sleep(3000);
+		
+		//clicking on date button
+		driver.findElement(By.xpath("//*[@id=\'divMain\']/div/app-train-list/div[4]/div/div[5]/div/div[1]/app-train-avl-enq/div[1]/div[7]/div[1]/div[3]/table/tr/td[2]/div/div[2]")).click();Thread.sleep(3000);
+		
+		//clicking on book button
+		driver.findElement(By.xpath("//*[@class='col-xs-12']//*[@type='button']")).click();Thread.sleep(3000);
+		
+		//scrolling the page to fill passengers details
+		WebElement passengerdetails=driver.findElement(By.xpath("//*[@id=\"psgn-form\"]/form/div/div[1]/div[4]/div/div"));
+		js.executeScript("arguments[0].scrollIntoView(true)",passengerdetails);
+		
+		//entering name
+		WebElement name=driver.findElement(By.xpath("//*[@id=\'ui-panel-12-content\']/div/div[1]/div[2]/div/app-passenger/div/div[1]/span/div[1]/p-autocomplete/span/input"));
+		Thread.sleep(3000);act.moveToElement(name).click().build().perform();name.sendKeys("kumar");
+		
+		//entering age
+		WebElement age=driver.findElement(By.xpath("//*[@id=\'ui-panel-12-content\']/div/div[1]/div[2]/div/app-passenger/div/div[1]/span/div[2]/input")); 
+		Thread.sleep(2000);act.moveToElement(age).click().build().perform();age.sendKeys("21");
+		
+		//selecting the gender
+		driver.findElement(By.xpath("//*[@id=\'ui-panel-12-content\']/div/div[1]/div[2]/div/app-passenger/div/div[1]/span/div[3]/select/option[2]")).click();Thread.sleep(2000);
+		
+		//cickon ok continue button
+		driver.findElement(By.xpath("//*[@id=\'psgn-form\']/form/div/div[1]/div[14]/div/button[2]")).click();Thread.sleep(3000);
+		
+		//clicking on captcha box
+		driver.findElement(By.xpath("//*[@id=\"captcha\"]")).click();Thread.sleep(10000);
+		
+		//clicking on continue button
+		WebElement continueb=driver.findElement(By.xpath("//*[@id=\'review\']/div[1]/form/div[3]/div/button[2]"));
+		act.moveToElement(continueb).click().build().perform();Thread.sleep(3000);
+		
+		//close the window
+		driver.close();
+		
+		
+		
+		
+		
+		
+	}
+
+}

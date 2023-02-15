@@ -1,0 +1,97 @@
+package PROJECTS;
+
+
+import java.awt.event.KeyEvent;
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class BookMyShow {
+
+	public static void main(String[] args) throws Exception {
+		//setting the system property
+		System.setProperty("webdriver.chrome.driver","C:\\chromedriver.exe");
+		//connecting webdriver and chrome driver
+		WebDriver driver=new ChromeDriver();
+		Actions act=new Actions(driver);
+		//entering valid url
+		driver.get("https://www.google.co.in/"); 
+		//maximise the window page
+		driver.manage().window().maximize(); 
+		
+		//finding the google text box and enter our value 
+		WebElement googlebox=driver.findElement(By.name("q"));
+		googlebox.sendKeys("Book my show",Keys.ENTER);
+		driver.findElement(By.className("yuRUbf")).click();
+		
+		//selecting the location chennai
+		driver.findElement(By.xpath("//*[@id=\'modal-root\']/div/div/div/div[2]/ul/li[7]/div/div/img")).click();
+		
+		//clicking on signin button
+		driver.findElement(By.xpath("//*[@id=\'super-container\']/div[2]/header/div[1]/div/div/div/div[2]/div[2]/div[1]")).click(); 
+		
+		//entering mobilenumber
+		WebElement mobno=driver.findElement(By.id("mobileNo"));
+		mobno.sendKeys("9894656787"); 
+		driver.findElement(By.xpath("//*[@id=\'modal-root\']/div/div/div/div/div[2]/form/div[2]/button")).click();
+		Thread.sleep(15000);
+		
+		//entering otp manually
+		
+		//searching the movie pathaan
+		driver.findElement(By.xpath("//*[@class='sc-jKVCRD hRDUUh']//*[@class='sc-jTzLTM sc-chbbiW hPUYXB']//*[@id='4']")).click();Thread.sleep(3000);
+		WebElement search=driver.findElement(By.xpath("//*[@class='sc-hcnlBt dhCwcJ']//*[@class='sc-hkbPbT eRDSCZ']//*[@class='sc-OxbzP fEZpKI']//*[@type='text']"));
+		act.moveToElement(search).click().build().perform();search.sendKeys("Pathaan");Thread.sleep(3000);
+		driver.findElement(By.xpath("//span[@class='sc-jhaWeW ChCae']")).click();Thread.sleep(3000);
+		
+		//clicking on book tickets
+		WebElement bookticket=driver.findElement(By.xpath("//*[@class='styles__SynopsisWrapper-sc-11q8erw-0 jrXuub']//div//div//div[@class='styles__EventInformationContainer-sc-qswwm9-5 kqaQef']/div[2]/div//button"));
+		act.moveToElement(bookticket).click().build().perform();Thread.sleep(3000);
+		
+		//clicking on language tamil
+		WebElement tamil=driver.findElement(By.xpath("//*[@class='styles__SynopsisContainer-sc-11q8erw-1 ipfaWt']//*[@class='sc-10qvp23-0 bAXHgy']//div//div/ul//li[1]//section[2]//div[@class='sc-vhz3gb-3 dRokFO']"));
+		act.moveToElement(tamil).click().build().perform();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));driver.findElement(By.id("wzrk-cancel")).click();Thread.sleep(3000);
+		
+		//cicking on theater ticket
+		WebElement ticket=driver.findElement(By.xpath("//*[@class='buyticket-page']//*[@class='wrapper']//*[@id='venuelist']//li[1]//*[@class='body showtimes-details-container ']//*[@class='showtime-pill']"));
+		Thread.sleep(3000);act.moveToElement(ticket).click().build().perform();Thread.sleep(3000);
+		
+		//accept the terms and conditions
+		WebElement accept=driver.findElement(By.xpath("//*[@class='buyticket-page _fixed']/div[18]/*[2]/div[4]/div[2]/div[2]/div/div[3]"));
+		Thread.sleep(3000);act.moveToElement(accept).click().build().perform();Thread.sleep(3000);
+		
+		//clicking on book tickets
+		driver.findElement(By.id("proceed-Qty")).click();Thread.sleep(3000);
+		
+		//selecting the specific row
+		driver.findElement(By.xpath("/html/body/div[5]/section[2]/div[3]/div/ul/li[1]/div[2]/div[2]/div/a")).click();
+		Thread.sleep(3000);
+		//*[@class='buyticket-page _fixed']/section//div[3]/section/div/div[2]/div[3]/div/div/table/tbody/tr[11]/td[2]//div[5]
+		// /html/body/div[5]/section[2]/div[3]/div/ul/li[1]/div[2]/div[2]/div/a
+		//clicking on buy tickets
+		driver.findElement(By.xpath("//*[@class='buyticket-page _fixed']/section/div[3]/section/div/div[6]/a[1]")).click();Thread.sleep(3000);
+		
+		//clicking on proceed
+		driver.findElement(By.xpath("//*[@class='buyticket-page']/section/div[3]/section[2]/div[3]/div/div[5]/div[1]")).click();Thread.sleep(3000);
+		
+		//entering the email id
+		WebElement email=driver.findElement(By.xpath("//*[@id=\"txtEmail\"]"));act.moveToElement(email).build().perform();
+		email.sendKeys("santhoshsakthi28@gmai.com");Thread.sleep(3000);
+		
+		//clicking on continue
+		driver.findElement(By.xpath("//*[@id=\"dContinueContactSec\"]/a")).click();
+		
+		//it wil ask for payments
+		//close the web
+		driver.close();
+	}
+
+}
