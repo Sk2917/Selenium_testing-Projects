@@ -1,0 +1,23 @@
+package Codoid;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Uploaddemo {
+
+	public static void main(String[] args) throws Exception {
+		System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demoqa.com/upload-download");
+		driver.manage().window().maximize();
+		WebElement upload=driver.findElement(By.id("uploadFile"));
+		Thread.sleep(3000);
+		upload.sendKeys("C:\\Users\\ADMIN\\Desktop\\TESTING PRACTISE");
+		Thread.sleep(3000);
+		driver.quit();
+		
+		}
+
+}
